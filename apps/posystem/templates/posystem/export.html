@@ -71,63 +71,9 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Choose Export Form</h1>
-          <form action="/request/add" method="post">
-            {% csrf_token %}
-          <div class="form-row">
-            <div class="form-group col-md-1">
-              <label for="inputEmail4">Quantity:</label>
-              <input type="number" class="form-control" id="quantity" placeholder="Quantity" name="quantity">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="inputEmail4">Product Number:</label>
-              <input type="text" class="form-control" id="number" placeholder="Product Number" name=product_number>
-            </div>
-            <div class="form-group col-md-8">
-              <label for="inputPassword4">Product Description:</label>
-              <input type="text" class="form-control" id="description" placeholder="Product Description" name="product_description">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-2">
-              <label for="inputEmail4">Unit Cost:</label>
-              <input type="number" class="form-control" id="unitcost" min="0" step="0.01" value="0.00" name="unit_cost" pattern="^\d+(?:\.\d{1,2})?$" onblur="
-          this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'">
-            </div>
-            <!-- <div class="form-group col-md-2">
-              <fieldset disabled>
-              <label for="disabledTextInput">Final Cost:</label>
-              <input type="email" class="form-control" id="finalcost" placeholder="Final Cost" name="final_cost">
-              </fieldset>
-            </div> -->
-          </div>
-          <div class="form-group col-md-12">
-            <button type="submit" class="btn btn-primary">Request</button>
-          </div>
-          </form>
+          <h1>This Page is Still Under Development</h1>
         </div>
       </div>
-      <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <form action="index.html" method="post">
-          <fieldset disabled>
-            <div class="form-group">
-              <label for="disabledTextInput">Disabled input</label>
-              <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
-            </div>
-            <div class="form-group">
-              <label for="disabledSelect">Disabled select menu</label>
-              <select id="disabledSelect" class="form-control">
-                <option>Disabled select</option>
-              </select>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox"> Can't check this
-              </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </fieldset>
-        </form>
-      </div> -->
     </div>
   </div>
 
