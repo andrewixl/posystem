@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link href="{% static 'login_app/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+    <link href="{% static 'login_app/css/index.css' %}" rel="stylesheet">
+    <title>Skyline PO System</title>
+  </head>
+  <body>
+				<div class="container">
+          {%if messages%}
+            {%for message in messages%}
+              {%if request.session.status == False%}
+                <div class="alert alert-danger" role="alert">
+                  <strong>Error!</strong> {{message}}
+                </div>
+              {%elif request.session.status == True%}
+                <div class="alert alert-success" role="alert">
+                  <strong>Success!</strong> User Registered! Please Log In.
+                </div>
+              {%endif%}
+            {%endfor%}
+          {%endif%}
+
+				<form class="form-signin" action='/login/addclub' method='post'>
+					{% csrf_token %}
+					<h2 class="form-signin-heading">Add Club</h2>
+
+					<label for="inputEmail" class="sr-only">Club Name</label>
+					<input type="text" id="inputEmail" class="form-control" name="club_name" placeholder="Club Name" required autofocus>
+
+					<label for="inputEmail" class="sr-only">Advisor Name</label>
+					<input type="text" id="inputEmail" class="form-control" name="advisor_name" placeholder="Advisor Name" required autofocus>
+
+					<label for="inputEmail" class="sr-only">Advisor Email</label>
+					<input type="email" id="inputEmail" class="form-control" name="advisor_email" placeholder="Advisor Email" required autofocus>
+
+					<label for="inputEmail" class="sr-only">Room Number (Building)</label>
+					<input type="number" id="inputEmail" class="form-control" name="room_number" placeholder="Room Number" required autofocus>
+
+          <label for="inputEmail" class="sr-only">ASB Account Number</label>
+					<input type="number" id="inputEmail" class="form-control" name="asb_account_number" placeholder="ASB Account Number" required autofocus>
+
+					<br>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" value='Register'>Add Club</button>
+				</form>
+
+			</div> <!-- /container -->
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="{% static 'login_app/js/bootstrap.min.js' %}"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="{% static 'login_app/js/holder.min.js' %}"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{% static 'login_app/js/ie10-viewport-bug-workaround.js' %}"></script>
+  </body>
+</html>
