@@ -50,7 +50,8 @@ def login(request):
 	request.session['last_name'] = results['user'][0].last_name
 	request.session['email'] = results['user'][0].email
 	request.session['username'] = results['user'][0].username
-	request.session['club'] = results['user'][0].club.club_name
+	request.session['club_name'] = results['user'][0].club.club_name
+	request.session['club_id'] = results['user'][0].club.id
 	request.session['user_id'] = results['user'][0].id
 	print request.session['user_id']
 	return redirect('/')

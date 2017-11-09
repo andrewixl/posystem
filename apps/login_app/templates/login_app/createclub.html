@@ -46,6 +46,18 @@
           <label for="inputEmail" class="sr-only">ASB Account Number</label>
 					<input type="number" id="inputEmail" class="form-control" name="asb_account_number" placeholder="ASB Account Number" required autofocus>
 
+          <label for="inputEmail4">ASB Account Value:</label>
+          <input type="number" class="form-control" id="unitcost" min="0" step="0.01" value="0.00" name="asbaccountvalue" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+          this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'">
+
+          <label for="inputEmail4">Boosters Account Value:</label>
+          <input type="number" class="form-control" id="unitcost" min="0" step="0.01" value="0.00" name="boostersaccountvalue" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+          this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'">
+
+          <label for="inputEmail4">Grant Account Value:</label>
+          <input type="number" class="form-control" id="unitcost" min="0" step="0.01" value="0.00" name="grantaccountvalue" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+          this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'">
+
 					<br>
 					<button class="btn btn-lg btn-primary btn-block" type="submit" value='Register'>Add Club</button>
 				</form>

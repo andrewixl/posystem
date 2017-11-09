@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Product
-from ..login_app.models import User
+from .models import Product, Vendor
+from ..login_app.models import User, Club
 from django.contrib import messages
+from django.db.models import Q
 import random
 
 def genErrors(request, Emessages):
@@ -13,9 +14,12 @@ def index(request):
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
-	products = Product.objects.all().order_by('-created_at')[:10]
+	products = Product.objects.filter(productclubid = request.session['club_id']).order_by('-created_at')[:10]
+	club = Club.objects.get(id = request.session['club_id'])
 	context = {
-	"product":products
+	"club_name": request.session['club_name'],
+	"product":products,
+	"club":club,
 	}
 	return render(request, 'posystem/index.html', context)
 
@@ -24,7 +28,12 @@ def request(request):
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
-	return render(request, 'posystem/request.html')
+	vendors = Vendor.objects.filter(vendorclubid = request.session['club_id'])
+	context = {
+	"club_name": request.session['club_name'],
+	"vendor": vendors,
+	}
+	return render(request, 'posystem/request.html', context)
 
 def addrequest(request):
 	try:
@@ -34,7 +43,7 @@ def addrequest(request):
 	results = Product.objects.registerProduct(request.POST)
 	request.session['status'] = results['status']
 	if results['status'] == True:
-		user = Product.objects.createProduct(request.POST)
+		user = Product.objects.createProduct(request.POST, request.session['club_id'])
 		messages.success(request, 'Product Requested!')
 	else:
 		genErrors(request, results['errors'])
@@ -46,16 +55,21 @@ def export(request):
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
-	return render(request, 'posystem/export.html')
+	context = {
+	"club_name": request.session['club_name'],
+	}
+	return render(request, 'posystem/export.html', context)
 
 def vote(request):
 	try:
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
-	products = Product.objects.exclude(voters = request.session['user_id']).all()
+	# products = Product.objects.exclude(Q(voters = request.session['user_id']) & Q(productclubid = request.session['club_id'])).all()
+	products = Product.objects.exclude(Q(voters = request.session['user_id'])).filter(Q(productclubid = request.session['club_id'])).all()
 	products2 = Product.objects.filter(voters = request.session['user_id']).all()
 	context = {
+	"club_name": request.session['club_name'],
 	"product":products,
 	"product2":products2,
 	}
@@ -66,8 +80,9 @@ def status(request):
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
-	products = Product.objects.all()
+	products = Product.objects.filter(productclubid = request.session["club_id"]).all()
 	context = {
+	"club_name": request.session['club_name'],
 	"product":products,
 	}
 	return render(request, 'posystem/status.html', context)
@@ -123,7 +138,10 @@ def addVendor(request):
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
-	return render(request, 'posystem/addvendor.html')
+	context = {
+	"club_name": request.session['club_name'],
+	}
+	return render(request, 'posystem/addvendor.html', context)
 
 def createVendor(request):
 	try:
@@ -133,9 +151,9 @@ def createVendor(request):
 	results = Vendor.objects.registerVendor(request.POST)
 	request.session['status'] = results['status']
 	if results['status'] == True:
-		user = Vendor.objects.createVendor(request.POST)
+		user = Vendor.objects.createVendor(request.POST, request.session['club_id'])
 		messages.success(request, 'Vendor Created!')
 	else:
 		genErrors(request, results['errors'])
 		return redirect("/addvendor")
-	return redirect('/')
+	return redirect('/request')

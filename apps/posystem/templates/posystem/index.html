@@ -46,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Skyline Spartabots</a>
+          <a class="navbar-brand" href="/"><p>{{club_name}}</p></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -74,22 +74,22 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Skyline Spartabots Dashboard</h1>
+          <h1 class="page-header">{{club_name}} Dashboard</h1>
 
           <h2 class="sub-header">Current Account Totals</h2>
           <div class="row placeholders justify-content-center">
             <div class="col-lg-4 placeholder">
-              <h1>$2802.72</h1>
+              <h1>${{club.asbaccountvalue}}</h1>
               <h4>ASB Account</h4>
               <span class="text-muted">Updated: 11/1/2017</span>
             </div>
             <div class="col-lg-4 placeholder">
-              <h1>$1250.02</h1>
+              <h1>${{club.boostersaccountvalue}}</h1>
               <h4>Grants Account</h4>
               <span class="text-muted">Updated: 11/1/2017</span>
             </div>
             <div class="col-lg-4 placeholder">
-              <h1>$202.54</h1>
+              <h1>${{club.grantaccountvalue}}</h1>
               <h4>Boosters Account</h4>
               <span class="text-muted">Updated: 11/1/2017</span>
             </div>

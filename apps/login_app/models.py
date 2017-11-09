@@ -28,6 +28,15 @@ class ClubManager(models.Manager):
 		if len(postData['asb_account_number']) < 3  and len(postData['asb_account_number']) > 20:
 			results['status'] = False
 			results['errors'].append('ASB Account Number Must be at Least 3 Characters.')
+		if postData['asbaccountvalue'] < 1:
+			results['status'] = False
+			results['errors'].append('ASB Account Value Must be at Least $0.00.')
+		if postData['boostersaccountvalue'] < 1:
+			results['status'] = False
+			results['errors'].append('Boosters Account Value Must be at Least $0.00.')
+		if postData['grantaccountvalue'] < 1:
+			results['status'] = False
+			results['errors'].append('Grant account Value Must be at Least $0.00.')
 
 		user = Club.objects.filter(club_name=postData['club_name'])
 		print user, '*****', len(user)
@@ -40,7 +49,9 @@ class ClubManager(models.Manager):
 	def createClub(self, postData):
 		# p_hash = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())
 		user = Club.objects.create(
-		    club_name=postData['club_name'], advisor_name=postData['advisor_name'], advisor_email=postData['advisor_email'], room_number=postData['room_number'], asb_account_number=postData['asb_account_number'],)
+		    club_name=postData['club_name'], advisor_name=postData['advisor_name'], advisor_email=postData['advisor_email'], room_number=postData['room_number'],
+			asb_account_number=postData['asb_account_number'], asbaccountvalue = postData['asbaccountvalue'], boostersaccountvalue = postData['boostersaccountvalue'],
+			grantaccountvalue = ['grantaccountvalue'],)
 		return user
 
 @python_2_unicode_compatible
@@ -51,6 +62,9 @@ class Club(models.Model):
 	room_number = models.CharField(max_length=20)
 	asb_account_number = models.CharField(max_length=20)
 	members = models.ManyToManyField('login_app.User', related_name="members")
+	asbaccountvalue = models.FloatField();
+	boostersaccountvalue = models.FloatField();
+	grantaccountvalue = models.FloatField();
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = ClubManager()
