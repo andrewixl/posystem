@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '552t4dw4kyh#jsi42&0%1tjj((yk)o^h-_%h=14je77)-@-rx%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['52.34.50.133', 'posystem.gq', 'www.posystem.gq', 'localhost']
 
 
 # Application definition
