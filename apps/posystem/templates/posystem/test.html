@@ -1,0 +1,23 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('a').click(function() {
+       $('#myTable tbody').append('<tr class="child"><td>blahblah</td></tr>');
+    });
+});
+</script>
+<title></title>
+</head>
+<body>
+<a href="javascript:void(0);">Link</a>
+<table id="myTable">
+  <tbody>
+    <tr>
+      <td>test</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

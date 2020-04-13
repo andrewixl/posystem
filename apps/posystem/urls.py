@@ -13,4 +13,7 @@ urlpatterns = [
     url(r'^changestatus/(?P<product_id>\d+)$', views.changestatus),
     url(r'^addvendor$', views.addVendor),
     url(r'^createvendor$', views.createVendor),
+    url(r'^data/(?P<vendor_id>\d+)$', views.products_json),
+    url(r'^export/pregenerate$', views.pregenerate),
+    url(r'^export/generate$', views.generate),
 ]

@@ -9,6 +9,7 @@
     {% load staticfiles %}
     <link rel="icon" href="../../favicon.ico">
 
+
     <title>PO System Dashboard</title>
 
     <!-- Bootstrap core CSS -->
@@ -32,7 +33,6 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -70,12 +70,61 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Choose Export Form</h1>
+          <h1 class="page-header">Choose Export Form and Vendor</h1>
           <h1>This Page is Still Under Development</h1>
+          <form action="/export/pregenerate" method="post" id="form">
+            {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <label for="inputEmail4">Form Type:</label><br>
+              <input type="radio" name="form" value="ASB PO Order Form" checked> ASB PO Order Form<br>
+              <input type="radio" name="form" value="PO Requsition Form"> PO Requsition Form<br>
+              <input type="radio" name="form" value="other"> Other <br> <br>
+
+              <button type="submit" class="btn btn-primary">Request</button>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputEmail4">Select Vendor:</label><br>
+              <select class="form-control vendorlist" id="vendor" name = "vendor">
+                <option value="Select Vendor">Select Vendor</option>
+                {% for vendor in vendor %}
+                <option value="{{vendor.id}}">{{vendor.vendor_name}}</option>
+                {% endfor %}
+              </select>
+              <button type="button" name="button" id="showvendors" >Show Products</button>
+            </div>
+          </div>
+          <div class="form-row" id=row>
+            <div class="form-group col-md-9">
+              <div class="table-responsive">
+                <table class="table table-striped" id="myTable">
+
+                  <thead>
+                    <tr>
+                      <th>Action</th>
+                      <th>Product Description</th>
+                      <th>Quantity</th>
+                      <th>Unit Cost</th>
+                      <th>Final Cost</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -87,5 +136,8 @@
     <script src="{% static 'posystem/bootstrap/js/vendor/holder.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'posystem/bootstrap/js/ie10-viewport-bug-workaround.js' %}"></script>
+
+    <script language="JavaScript" type="text/javascript" src="{% static 'posystem/js/export.js' %}"></script>
+
   </body>
 </html>

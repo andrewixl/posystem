@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import Product, Vendor
 from ..login_app.models import User, Club
 from django.contrib import messages
 from django.db.models import Q
+from django.core import serializers
 import random
 
 def genErrors(request, Emessages):
@@ -55,8 +56,10 @@ def export(request):
 		request.session['user_id']
 	except KeyError:
 		return redirect("/login")
+	vendors = Vendor.objects.filter(vendorclubid = request.session['club_id'])
 	context = {
 	"club_name": request.session['club_name'],
+	"vendor": vendors,
 	}
 	return render(request, 'posystem/export.html', context)
 
@@ -157,3 +160,15 @@ def createVendor(request):
 		genErrors(request, results['errors'])
 		return redirect("/addvendor")
 	return redirect('/request')
+
+def products_json(request, vendor_id):
+    # json_serializer = serializers.get_serializer("json")();
+	products_json = serializers.serialize("json", Product.objects.filter(Q(productvendor_id = vendor_id) & Q(productclubid = request.session["club_id"]) & Q(votes__gte=5).all())
+	return HttpResponse(products_json)
+
+def pregenerate(request):
+	print request.POST
+	return redirect('/export/generate')
+
+def generate(request):
+	return render(request, 'posystem/generate.html')
